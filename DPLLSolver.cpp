@@ -151,6 +151,36 @@ int DPLLSolver(SATList *&cnf, int value[]) {
         tp = cnf;
         goto FIND;  //继续简化
     }
+
+    FIND2:
+    // 孤立文字消去
+    for (i = 0; i <= Varnumber; i++) count[i] = 0;  //初始化
+
+    for (lp = cnf; lp != NULL; lp = lp->next) {
+        for (dp = lp->first; dp != NULL; dp = dp->next) {
+            count[abs(dp->data)]++;
+        }
+    }
+
+    bool isDelete = false;
+    for (i = 1; i <= Varnumber; i++) {
+        if (count[i] == 1) {
+            for (lp = cnf; lp != NULL; lp = sp) {
+                sp = lp->next;
+                for (dp = lp->first; dp != NULL; dp = dp->next) {
+                    if (dp->data == i || dp->data == -i) {
+                        DeleteClause(lp, cnf);
+                        isDelete = true;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    if(isDelete) {
+        goto FIND2;
+    }
+
     for (i = 0; i <= Varnumber * 2; i++) count[i] = 0;  //初始化
 
     //计算子句中各文字出现次数

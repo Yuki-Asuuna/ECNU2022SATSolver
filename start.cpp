@@ -4,7 +4,7 @@
 #include "Global.h"
 
 void Start() {
-    cout<<"Welcome to use the SATSolver!\n"
-        <<"Please Choose the type of input that you want to use:"
-        <<" Boolean Formula(For \"1\")/ DIMACS(For \"2\")\n";
+    cout << "Welcome to use the SATSolver!\n"
+         << "Please Choose the type of input that you want to use:"
+         << " Boolean Formula(For \"1\")/ DIMACS(For \"2\")\n";
 }
